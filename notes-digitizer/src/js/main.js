@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    document.getElementById('file').addEventListener('change', (event) => {
+        document.getElementById('selectedFile').textContent = `${event.target.files[0].name} \u2713`;
+    });
+
     document.getElementById('uploadForm').addEventListener('submit', async function (event) {
         event.preventDefault();
         try {
@@ -23,19 +27,42 @@ document.addEventListener('DOMContentLoaded', () => {
             const FileInput = event.target.querySelector('input[type="file"]');
             form.append(FileInput.name, FileInput.files[0]);
             
+            // use key to create polling entry
+            let card = document.createElement('p');
+            card.textContent = FileInput.files[0].name;
+            card.classList.add("inline");
+            let refresh = document.createElement('p');
+            refresh.textContent = " \u21bb";
+            refresh.classList.add("inline","cursor-pointer");
+            refresh.addEventListener('click', (event) => {
+                // make polling request
+                const key = data.fields.key;
+                
+            });
+            document.getElementById('jobs').append(card, refresh);
+            event.target.reset();
+            document.getElementById('selectedFile').textContent = "None Selected";
+
+            return;
+
             // submit the form to post image to s3 bucket
             const s3Response = await fetch(data.url, {
                 method: "POST",
                 body: form
             });
             if(s3Response.ok){
-                console.log("Image Uploaded Successfully"); // Generate Frontend Card
+                // use key to create polling entry
+                let card = document.createElement('p');
+                card.textContent = FileInput.name;
+                document.getElementById('jobs').append(card);
+                event.target.reset();
+                document.getElementById('selectedFile').textContent = "None Selected";
             }else{
+                //update frontend with error message
                 console.log("Failed to upload the image to s3 bucket.")
                 const err = await s3Response.text();
                 console.log(err);
             }
-            // use key to create polling entry
             
         } catch (error) {
             console.error('Error: ', error);
