@@ -1,7 +1,7 @@
 # Image to Text Converter
 
 <img height="500" alt="Diagram" src="https://github.com/user-attachments/assets/dd31d737-da78-4354-a399-ba250b3ee5b4" /> <br>
-[Technical Demo](https://youtu.be/lEluBGsd_HU)
+[Technical Demo/Backend Overview](https://youtu.be/lEluBGsd_HU)
 
 ## Overview
 This project provides users with an intuitive interface to upload images containing human readable text to be rapidly converted into a digital format for practical applications including but not limited to:
